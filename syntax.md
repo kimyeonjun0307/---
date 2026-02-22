@@ -32,7 +32,7 @@ reverse(s.begin(), s.end());
 3. 문자열이 매우 길면 O(N) 성능 고려
 */
 
-'''
+```
 
 ## swap
 

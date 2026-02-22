@@ -35,3 +35,8 @@ reverse(s.begin(), s.end());
 '''
 
 ## swap
+
+### 사용법 + 언제 + 주의사항
+
+'''cpp
+#include< 

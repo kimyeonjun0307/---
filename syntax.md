@@ -186,3 +186,48 @@ transform(v.begin(), v.end(), v.begin(), [](int x){ return x * 2; });
 */
 ```
 
+## max_element
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <algorithm>
+
+max_element(시작, 끝);
+
+/*
+[어떻게 쓰는지]
+
+→ 범위 내에서 가장 큰 값을 "가리키는 iterator"를 반환한다.
+→ 값이 아니라 iterator를 반환하므로 * 로 역참조해야 한다.
+→ 내부적으로 선형 탐색을 한다.
+→ 시간복잡도 O(N).
+
+형태
+1. 값만 구하기
+int mx = *max_element(v.begin(), v.end());
+
+2. 인덱스 구하기
+int idx = max_element(v.begin(), v.end()) - v.begin();
+
+3. 배열에서도 가능
+int mx = *max_element(arr, arr + N);
+
+4. 사용자 정의 기준 (람다)
+max_element(v.begin(), v.end(), [](int a, int b){
+    return a < b;   // 기본 오름차순 기준과 동일
+});
+
+[언제 쓰는지]
+1. vector / 배열에서 최댓값 찾기
+2. 빈도 배열에서 가장 많이 나온 값 찾기
+3. 그리디 문제
+4. DP 결과 중 최대값 선택
+5. 정렬 없이 최대값만 필요할 때
+
+[무엇을 조심해야 하는지]
+1. <algorithm> 헤더 필수
+2. 빈 컨테이너에서 사용하면 오류
+3. iterator 반환 → 반드시 * 필요
+4. 범위 설정 실수 주의 (begin, end)
+*/
+```
+

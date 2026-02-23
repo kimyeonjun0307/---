@@ -41,3 +41,37 @@ for(int i = 65; i<=90; i++)
 if (it != s.end()); it이 가리키는 값이 유효하다.
 
 ```
+
+## iterator 실수
+### 틀린 코드 + 왜 틀렸는가 + 주의사항 + 정답
+```cpp
+/*
+[틀린 코드]
+
+int result = max_element(v.begin(), v.end());  // ❌ 타입 오류
+cout << v[*result] << "\n";                    // ❌ *도 의미 없음
+
+[왜 틀렸는가]
+
+1. max_element()는 iterator(위치)를 반환함
+   - "가장 큰 값이 있는 위치를 가리키는 포인터" 같은 개념
+   - int에 바로 저장하면 타입 오류 발생
+
+2. * 연산자는 iterator 상태에서만 값에 접근 가능
+   - int에 저장 후 *result는 의미 없음
+   - *는 iterator 상태에서 붙여야 함
+[정답]
+
+ 1: iterator에서 인덱스로 변환
+    int result = max_element(v.begin(), v.end()) - v.begin();
+    cout << (char)('A' + result) << "\n";  
+
+ 2: auto로 iterator 그대로 저장
+    auto it = max_element(v.begin(), v.end());
+    cout << (char)('A' + (it - v.begin())) << "\n";  
+
+ 3: 값만 꺼내기
+    int mx = *max_element(v.begin(), v.end());
+    cout << mx << "\n";
+
+```

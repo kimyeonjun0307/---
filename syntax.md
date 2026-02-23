@@ -230,4 +230,52 @@ max_element(v.begin(), v.end(), [](int a, int b){
 4. 범위 설정 실수 주의 (begin, end)
 */
 ```
+## find
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <algorithm>
 
+find(시작, 끝, 찾을값);
+ex)auto it = find(v.begin(), v.end(), x);
+
+/*
+[어떻게 쓰는지]
+
+→ 범위 내에서 특정 값을 찾는다.
+→ 찾으면 그 위치를 가리키는 iterator 반환.
+→ 못 찾으면 끝 iterator (end) 반환.
+→ 내부적으로 선형 탐색 수행.
+→ 시간복잡도 O(N).
+
+형태
+1. 존재 여부 확인
+auto it = find(v.begin(), v.end(), x);
+
+if (it != v.end()) {
+    // 찾음
+}
+
+2. 인덱스 구하기
+int idx = find(v.begin(), v.end(), x) - v.begin();
+
+3. 배열에서도 사용 가능
+auto it = find(arr, arr + N, x);
+
+4. 문자열에서도 사용 가능
+auto it = find(s.begin(), s.end(), 'A');
+
+[언제 쓰는지]
+1. 특정 값 존재 여부 확인
+2. 중복 검사
+3. 구현 문제에서 조건 체크
+4. 방문 여부 확인
+5. 문자열에서 문자 탐색
+
+[무엇을 조심해야 하는지]
+1. <algorithm> 헤더 필수
+2. iterator 반환 → 반드시 end와 비교
+3. 못 찾으면 v.end() 반환
+4. 정렬 여부와 상관없이 사용 가능
+5. 큰 데이터에서는 O(N) 성능 고려
+*/
+```

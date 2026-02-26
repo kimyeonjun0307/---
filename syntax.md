@@ -278,4 +278,95 @@ auto it = find(s.begin(), s.end(), 'A');
 4. 정렬 여부와 상관없이 사용 가능
 5. 큰 데이터에서는 O(N) 성능 고려
 */
+
+```
+
+##  매핑 unordered_map
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <unordered_map>
+
+unordered_map<key타입, value타입> 이름;
+
+/*
+[어떻게 쓰는지]
+
+→ key를 통해 value를 빠르게 찾는다.
+→ 내부적으로 해시 테이블 사용.
+→ 평균 시간복잡도 O(1).
+→ 순서는 보장되지 않는다.
+
+형태
+1. 선언 + 초기화
+unordered_map<string, double> grade = {
+    {"A+", 4.5},
+    {"A0", 4.0},
+    {"B+", 3.5}
+};
+
+2. 값 접근
+double score = grade["A+"];
+
+3. 존재 여부 확인
+auto it = grade.find("A+");
+
+if (it != grade.end()) {
+    // 존재함
+}
+
+4. 값 수정 / 삽입
+grade["C+"] = 2.5;
+
+5. 자동 생성 주의
+grade["X"];
+// key가 없으면 기본값으로 생성됨
+// double이면 0.0
+
+6. 반복문 순회
+for (auto &p : grade) {
+    cout << p.first << " " << p.second << "\n";
+}
+
+7. 삭제
+grade.erase("A+");
+
+8. 전체 삭제
+grade.clear();
+
+[언제 쓰는지]
+
+1. 문자열 → 숫자 매핑
+   (학점 변환, 문자 변환 등)
+
+2. 빈도수 세기
+   (단어 개수, 문자 개수)
+
+3. 빠른 탐색이 필요할 때
+
+4. 중복 체크
+
+5. 좌표, 이름, ID 같은 Key 기반 문제
+
+6. 해시 기반 문제 대부분
+
+[무엇을 조심해야 하는지]
+
+1. <unordered_map> 헤더 필수
+
+2. [] 사용 시 자동 생성됨
+   → 존재 여부 확인 후 접근하는 습관
+
+   if (grade.find(key) != grade.end())
+
+3. 순서 보장 안 됨
+   → 정렬 필요하면 map 사용
+
+4. 해시 충돌 가능
+   → 평균 O(1), 최악 O(N)
+
+5. key는 hash 가능한 타입이어야 함
+   → string, int 등
+
+6. 매우 큰 데이터에서 메모리 사용량 큼
+*/
 ```

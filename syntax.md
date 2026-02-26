@@ -318,7 +318,7 @@ if (it != grade.end()) {
 grade["C+"] = 2.5;
 
 5. 자동 생성 주의
-grade["X"];
+grade["X"];                    // 그래서 나오는 중급스킬: grade.at() 를 쓰게되면, key가 없을때 에러발생.
 // key가 없으면 기본값으로 생성됨
 // double이면 0.0
 

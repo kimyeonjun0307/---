@@ -371,3 +371,180 @@ grade.clear();
 6. 매우 큰 데이터에서 메모리 사용량 큼
 */
 ```
+
+##getline
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <string>
+#include <iostream>
+
+string s;
+
+getline(cin, s);
+
+/*
+[어떻게 쓰는지]
+
+→ 입력 스트림(cin)에서 한 줄 전체를 읽어서 문자열에 저장한다.
+→ 공백, 탭을 포함한 모든 문자 입력 가능.
+→ 엔터(줄바꿈)가 나올 때까지 읽는다.
+→ 줄바꿈 문자는 버리고 문자열에 저장하지 않는다.
+
+→ 시간복잡도 O(N) == 입력된 문자열 길이에 비례해서 시간 증가.
+
+
+[언제 쓰는지]
+
+1. 문장 입력 (공백 포함 문자열)
+   → 이름, 문장, 텍스트 등
+
+2. 문자열 문제 (예: [Baekjoon Online Judge](chatgpt://generic-entity?number=0))
+   → 단어가 아닌 문장 단위 입력일 때 필수
+
+3. 공백 포함 입력 문제
+   → 예: "hello world", "C++ is fun"
+
+4. 한 줄씩 처리해야 하는 문제
+   → 로그, 텍스트 분석, 문자열 파싱
+
+5. stringstream과 함께 사용
+   → 한 줄 입력 후 숫자나 단어 분리
+
+6. EOF까지 반복 입력
+   → 파일 입력, 테스트 케이스 개수 없는 문제
+
+
+[무엇을 조심해야 하는지]
+
+1. cin >> 와 함께 사용 시 버퍼 문제
+   → cin >> 는 엔터를 남긴다.
+   → getline은 그 엔터를 바로 읽고 종료된다.
+
+   해결 방법:
+   cin.ignore();
+
+2. 빈 줄 입력 가능
+   → 사용자가 그냥 엔터를 누르면 빈 문자열("")이 들어온다.
+
+3. EOF 처리 시
+   → while(getline(cin, s)) 패턴 사용
+
+4. 문자열이 매우 길 경우
+   → 메모리, 시간 고려 필요
+
+5. Windows 줄바꿈(\r\n) 문제
+   → 일부 환경에서 '\r' 제거 필요할 수 있음.
+
+
+[추가 꿀팁]
+
+1. 문자열 여러 줄 입력
+   while(getline(cin, s))
+
+2. 숫자 + 문자열 혼합 입력
+   cin >> n;
+   cin.ignore();
+   getline(cin, s);
+
+3. 입력 속도 최적화
+   ios::sync_with_stdio(false);
+   cin.tie(NULL);
+
+*/
+```
+
+##stringstream
+### 사용법 + 언제 + 주의사항
+```cpp
+
+
+#include <sstream>
+#include <string>
+#include <iostream>
+
+string s = "10 20 30";
+
+stringstream ss(s);
+
+int x;
+while (ss >> x)
+{
+    cout << x << '\n';
+}
+
+/*
+[어떻게 쓰는지]
+
+→ 문자열을 입력 스트림처럼 사용하게 해주는 도구.
+→ 공백 기준으로 데이터를 나눠서 읽을 수 있다.
+→ cin >> 처럼 사용 가능.
+→ 원본 문자열은 바뀌지 않는다.
+
+→ 시간복잡도 O(N) == 문자열 길이에 비례
+
+
+[언제 쓰는지]
+
+1. 한 줄 입력 후 단어 분리
+   예: "hello world C++"
+
+2. 숫자 여러 개 한 줄에 입력
+   예: "10 20 30 40"
+
+3. getline + 숫자 파싱
+   → 백준에서 매우 자주 나옴
+   → 테스트 케이스 개수 없이 한 줄씩 처리할 때
+
+4. 문자열 파싱 문제
+   → 로그 분석, CSV 처리, 공백 기준 분리
+
+5. 자료형 변환
+   → string → int
+   → string → double
+
+
+[무엇을 조심해야 하는지]
+
+1. <sstream> 헤더 필수
+
+2. 공백 기준 분리
+   → 기본은 공백(스페이스, 탭, 엔터)
+
+3. 한 번 읽으면 내부 포인터가 이동한다
+   → 다시 쓰려면 새로 만들어야 한다
+
+   stringstream ss(s);
+   ss.clear();
+   ss.str(new_string);
+
+4. getline과 같이 쓸 때
+   → cin >> 후에는 cin.ignore() 필요
+
+5. 매우 긴 문자열 반복 사용 시
+   → 성능 고려 (하지만 대부분 문제 없음)
+
+
+[자주 쓰는 패턴]
+
+1. getline + stringstream
+
+   string line;
+   getline(cin, line);
+
+   stringstream ss(line);
+   int x;
+   while (ss >> x)
+   {
+       // 처리
+   }
+
+2. 구분자 직접 지정
+
+   string token;
+   while (getline(ss, token, ','))
+   {
+       // 쉼표 기준 분리
+   }
+
+*/
+```

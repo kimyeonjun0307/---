@@ -587,6 +587,7 @@ int main() {
 ```
 ## *min_element, *max_element
 ### 사용법 + 언제 + 주의사항
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 

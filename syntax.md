@@ -585,37 +585,64 @@ int main() {
 */
 
 ```
-## *min_element, *max_element
+## min, max, *min_element, *max_element
 ### 사용법 + 언제 + 주의사항
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
+// 두 값 비교
+int a = 5, b = 9;
+int minVal1 = min(a,b);
+int maxVal1 = max(a,b);
+
+// 여러 값 비교 (C++11 이상)
+int minVal2 = min({a, b, 2, 7});
+int maxVal2 = max({a, b, 2, 7});
+
+// 벡터 / 배열 전체 최소/최대
 vector<int> v = {5, 2, 9, 1, 7};
+int minVal3 = *min_element(v.begin(), v.end());
+int maxVal3 = *max_element(v.begin(), v.end());
 
-// 벡터 최소값
-int minVal = *min_element(v.begin(), v.end());
-
-// 벡터 최대값
-int maxVal = *max_element(v.begin(), v.end());
+// 직접 최소/최대 갱신 (벡터 없이 실전용)
+int xArr[] = {5,2,9,1,7};
+int xmin = INT_MAX, xmax = INT_MIN;
+for(int x : xArr){
+    xmin = min(xmin, x);
+    xmax = max(xmax, x);
+}
 
 /*
 [어떻게 쓰는지]
 
-→ 벡터(혹은 배열) 전체에서 최소값/최대값을 찾아준다.
-→ 반환값은 iterator이므로 실제 값이 필요하면 * 연산자를 사용.
-→ 시간복잡도 O(N) == 벡터 길이에 비례해서 시간이 증가함.
+1. min(a,b) / max(a,b)
+→ 단순히 두 값 비교
+
+2. min({a,b,c,d}) / max({a,b,c,d})
+→ 여러 값 중 최소/최대
+
+3. *min_element(v.begin(), v.end()) / *max_element(v.begin(), v.end())
+→ 벡터나 배열 전체에서 최소/최대
+→ iterator 반환 → * 붙여서 값 사용
+→ 시간복잡도 O(N)
+
+4. INT_MAX / INT_MIN 활용 + 반복문
+→ 벡터 없이 최소/최대 갱신 가능
+→ 실전 코드에서 메모리 절약 / 속도 약간 향상
 
 [언제 쓰는지]
-1. 벡터/배열에서 최소값이나 최대값 필요할 때
+
+1. 벡터/배열에서 최소값/최대값 필요할 때
 2. 범위 내 최솟값/최댓값 갱신할 때
-3. 백준 1085번 같은 문제에서 x, y, w, h 중 최솟값/최댓값 찾을 때
-4. 부분 범위 최소/최대 필요할 때(v.begin()+i, v.begin()+j)
+3. 문제에서 x,y,w,h 등 최솟값/최댓값 찾을 때
+4. 두 값, 여러 값, 전체 배열 등 상황에 따라 적절히 선택
 
 [무엇을 조심해야 하는지]
-1. iterator 반환 → 실제 값 얻으려면 * 필요
-2. 벡터가 비어있으면 undefined behavior
-3. O(N)이므로 아주 큰 벡터에서는 성능 고려
 
+1. min_element / max_element → iterator 반환, 실제 값 필요 시 * 필요
+2. 배열/벡터가 비어있으면 undefined behavior
+3. INT_MAX / INT_MIN 초기화 → 적절히 사용
+4. O(N) 연산 → 매우 큰 벡터에서는 성능 고려
 */
 ```

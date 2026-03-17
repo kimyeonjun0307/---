@@ -772,4 +772,72 @@ void func(int& x)    // 참조로 받기
 
 */
 ```
+##const reference
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
 
+void print(const vector<int>& v) {
+    // v[0] = 10; // ❌ 수정 불가
+
+    for (const int& x : v) {
+        cout << x << " ";
+    }
+}
+
+int main() {
+    vector<int> v = {1, 2, 3};
+    print(v);
+}
+
+/*
+[어떻게 쓰는지]
+
+→ const + reference
+→ "읽기 전용 참조"
+
+ex)
+const int& r = a;
+const vector<int>& v
+
+→ 복사는 안 하고, 수정도 못함
+→ 즉, 빠르고 안전함
+
+
+[언제 쓰는지]
+
+1. 큰 데이터 읽기 전용으로 받을 때 (최우선)
+   → vector, string, 배열 등
+   → 복사 비용 제거 + 안전성 확보
+
+2. 함수에서 값 변경 의도가 없을 때
+   → 실수 방지 (코드 신뢰도 상승)
+
+3. 반복문에서 값만 읽을 때
+   → for (const int& x : v)
+
+4. 임시값 받을 때 (중요 포인트)
+   → const reference는 임시값도 가능
+
+ex)
+const int& r = 10; // ✅ 가능
+
+
+[무엇을 조심해야 하는지]
+
+1. 값 수정 불가
+   → r = 20; ❌
+
+2. const 빼면 실수로 값 변경 가능
+   → 의도 명확하게 할 것
+
+3. 너무 작은 타입(int 등)은 굳이 필요 없음
+   → int는 그냥 값으로 받아도 됨
+
+4. 원본이 바뀌면 참조 값도 같이 바뀜
+   → "읽기 전용"이지 "고정값"은 아님
+
+*/
+```

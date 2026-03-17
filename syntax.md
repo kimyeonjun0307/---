@@ -918,3 +918,83 @@ ex)
 
 */
 ```
+## lower_bound
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> v = {10, 20, 30, 40};
+
+    auto it = lower_bound(v.begin(), v.end(), 25);
+
+    cout << *it; // 30
+}
+
+/*
+[어떻게 쓰는지]
+
+→ lower_bound(시작, 끝, 값)
+
+→ "값 이상이 처음 나오는 위치"를 iterator로 반환
+
+ex)
+v = {10, 20, 30, 40}
+
+lower_bound(v.begin(), v.end(), 25)
+→ 30 위치 반환
+
+lower_bound(v.begin(), v.end(), 30)
+→ 30 위치 반환
+
+
+→ index로 쓰고 싶으면
+lower_bound(...) - v.begin()
+
+
+[언제 쓰는지]
+
+1. 정렬된 배열에서 위치 찾을 때 (핵심)
+   → 이분 탐색 자동 수행 (O(log N))
+
+2. 좌표 압축 (필수 패턴)
+   → 값의 순서(index) 구할 때
+
+3. 특정 값이 들어갈 위치 찾기
+   → 삽입 위치 계산
+
+4. 범위 문제 (이분 탐색 활용)
+   → 조건 만족하는 첫 위치 찾기
+
+5. 중복 값 처리
+   → 같은 값 중 "첫 번째 위치"
+
+
+[무엇을 조심해야 하는지]
+
+1. 반드시 정렬되어 있어야 함
+   → sort 안 하면 결과 ❌
+
+2. iterator 반환함
+   → 값이 아니라 "주소"
+
+3. 범위 벗어날 수 있음
+   → 못 찾으면 end() 반환
+
+ex)
+auto it = lower_bound(v.begin(), v.end(), 100);
+if (it == v.end()) // 체크 필수
+
+4. vector뿐 아니라 배열도 가능
+
+int arr[] = {1,2,3,4};
+lower_bound(arr, arr+4, 3);
+
+5. 시간복잡도 O(log N)
+   → 매우 빠름
+
+*/
+```

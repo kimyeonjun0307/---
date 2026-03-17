@@ -841,3 +841,80 @@ const int& r = 10; // ✅ 가능
 
 */
 ```
+## stable_sort
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<pair<int, int>> v = {
+        {1, 100},
+        {2, 200},
+        {1, 300},
+        {2, 400}
+    };
+
+    stable_sort(v.begin(), v.end(), [](auto a, auto b) {
+        return a.first < b.first;
+    });
+
+    for (auto x : v) {
+        cout << x.first << " " << x.second << "\n";
+    }
+}
+
+/*
+[어떻게 쓰는지]
+
+→ stable_sort(begin, end)
+→ stable_sort(begin, end, 비교함수)
+
+→ 기본은 sort와 동일하게 사용
+→ 차이점: "안정 정렬" (stable)
+
+→ 안정 정렬이란?
+   → 같은 값이면 "기존 순서 유지"
+
+ex)
+(1,100), (1,300)
+→ 정렬 후에도 순서 그대로 유지됨
+
+
+[언제 쓰는지]
+
+1. "같은 값일 때 순서 유지"가 중요한 문제
+   → 순서 자체가 의미 있을 때
+
+2. 다중 기준 정렬 (핵심)
+   → 2순위, 3순위 정렬
+
+ex)
+1. second 기준으로 먼저 정렬
+2. first 기준으로 stable_sort
+
+→ first 같으면 second 순서 유지됨
+
+3. 정렬 후에도 원래 순서 정보가 필요할 때
+
+4. 데이터의 "안정성"이 중요한 경우
+
+
+[무엇을 조심해야 하는지]
+
+1. 일반 sort보다 느림
+   → sort: O(N log N)
+   → stable_sort: O(N log N) (하지만 상수 시간 더 큼)
+
+2. 메모리 추가 사용 가능
+   → 내부적으로 추가 공간 사용
+
+3. 굳이 필요 없으면 sort 쓰는 게 더 좋음
+
+4. comparator 잘못 쓰면 의미 없음
+   → "같을 때 false 반환" 유지해야 안정성 의미 있음
+
+*/
+```

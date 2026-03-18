@@ -466,6 +466,15 @@ for (auto &x : s) {
     cout << x << "\n";
 }
 
+또는
+for (auto it = s.begin(); it != s.end(); ) {
+    if (삭제조건) {
+        it = s.erase(it);  // erase 후 iterator는 다음 위치 반환
+    } else {
+        ++it;              // 삭제 안 하면 그냥 다음으로 이동
+    }
+}
+
 6. 크기
 s.size();
 

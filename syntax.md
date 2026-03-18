@@ -371,6 +371,180 @@ grade.clear();
 6. 매우 큰 데이터에서 메모리 사용량 큼
 */
 ```
+## Map
+###  사용법 + 언제 + 주의사항
+```cpp
+#include <map>
+
+map<key타입, value타입> 이름;
+
+/*
+[어떻게 쓰는지]
+
+→ key → value 저장
+→ key 기준 자동 정렬
+→ 내부적으로 Red-Black Tree 사용
+→ 시간복잡도 O(log N)
+
+형태
+1. 선언
+map<string, int> m;
+
+2. 값 삽입
+m["apple"] = 3;
+m["banana"] = 5;
+
+3. 값 접근
+cout << m["apple"];
+
+4. 존재 여부 확인
+if (m.find("apple") != m.end()) {
+    // 존재함
+}
+
+5. 반복문
+for (auto &p : m) {
+    cout << p.first << " " << p.second << "\n";
+}
+
+6. 삭제
+m.erase("apple");
+
+7. 전체 삭제
+m.clear();
+
+[언제 쓰는지]
+
+1. 정렬된 상태 유지 필요할 때
+2. key 기준 순회해야 할 때
+3. 사전 순 출력 문제
+4. 범위 탐색 (lower_bound)
+
+[무엇을 조심해야 하는지]
+
+1. unordered_map보다 느림
+2. [] 사용 시 자동 생성됨
+3. 단순 탐색이면 unordered_map이 더 좋음
+*/
+```
+##unordered_set
+###사용법 + 언제 + 주의사항
+```cpp
+
+#include <unordered_set>
+
+unordered_set<타입> 이름;
+
+/*
+[어떻게 쓰는지]
+
+→ 중복 없는 데이터 저장
+→ 정렬 없음
+→ 내부적으로 해시 테이블 사용
+→ 평균 시간복잡도 O(1)
+
+형태
+1. 선언
+unordered_set<int> s;
+
+2. 삽입
+s.insert(10);
+
+3. 존재 여부 확인
+if (s.count(10)) {
+    // 존재함
+}
+
+또는
+if (s.find(10) != s.end())
+
+4. 삭제
+s.erase(10);
+
+5. 반복문
+for (auto &x : s) {
+    cout << x << "\n";
+}
+
+6. 크기
+s.size();
+
+7. 전체 삭제
+s.clear();
+
+[언제 쓰는지]
+
+1. 빠른 존재 확인 (핵심 ⭐)
+2. 중복 체크
+3. 숫자 카드, 문자열 집합 문제
+4. 순서 필요 없는 경우
+
+[무엇을 조심해야 하는지]
+
+1. 순서 보장 안 됨
+2. 해시 충돌 → 최악 O(N)
+3. set보다 메모리 많이 씀
+4. 정렬 필요하면 사용 ❌
+
+*/
+```
+##set
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <set>
+
+set<타입> 이름;
+
+/*
+[어떻게 쓰는지]
+
+→ 중복 없는 데이터 저장
+→ 자동 정렬 (오름차순)
+→ 내부적으로 Red-Black Tree 사용
+→ 시간복잡도 O(log N)
+
+형태
+1. 선언
+set<int> s;
+
+2. 값 삽입
+s.insert(3);
+s.insert(1);
+s.insert(3); // 중복 무시
+
+3. 값 확인
+if (s.find(3) != s.end()) {
+    // 존재함
+}
+
+4. 삭제
+s.erase(3);
+
+5. 반복문
+for (auto &x : s) {
+    cout << x << "\n";
+}
+
+6. 크기
+s.size();
+
+7. 비우기
+s.clear();
+
+[언제 쓰는지]
+
+1. 중복 제거 + 정렬이 동시에 필요할 때
+2. 자동 정렬된 상태 유지해야 할 때
+3. 범위 탐색 (lower_bound 등)
+4. 순서가 중요한 문제
+
+[무엇을 조심해야 하는지]
+
+1. unordered_set보다 느림 (O(log N))
+2. 삽입할 때마다 정렬됨 → 비효율 가능
+3. 단순 중복 제거면 vector + sort가 더 빠름
+*/
+```
 
 ##getline
 ### 사용법 + 언제 + 주의사항

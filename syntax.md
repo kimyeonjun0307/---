@@ -543,6 +543,65 @@ s.clear();
 
 */
 ```
+
+## unordered_set에서 pair 응용법
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <iostream>
+#include <unordered_set>
+#include <utility>
+using namespace std;
+
+struct PairHash {
+    size_t operator()(const pair<int,int>& p) const {
+        return hash<int>()(p.first) ^ (hash<int>()(p.second) << 1);
+    }
+};
+
+unordered_set<pair<int,int>, PairHash> s;
+
+/*
+[어떻게 쓰는지]
+
+→ unordered_set<pair<int,int>, PairHash> 형태로 사용
+→ pair는 기본 hash가 없어서 "해시 함수"를 직접 정의해야 한다
+
+→ 삽입: s.insert({x, y});
+→ 조회: s.count({x, y});  // 있으면 1, 없으면 0
+
+→ 평균 시간복잡도 O(1)
+
+[언제 쓰는지]
+
+1. 좌표 방문 체크 (BFS / DFS)
+2. (x, y) 형태 상태 저장
+3. pair 단위 중복 제거
+4. 간선 (u, v) 저장
+
+→ "값 2개를 묶어서 빠르게 관리"할 때 사용
+
+[무엇을 조심해야 하는지]
+
+1. PairHash 없으면 컴파일 에러 (pair는 기본 hash 없음)
+2. unordered_set은 순서 없음 (정렬 X)
+3. 값 수정 불가 → erase 후 insert
+4. 해시 충돌 가능 (최악 O(N), 보통 문제 없음)
+
+[추가 지식]
+
+→ 해시 함수는 pair를 하나의 숫자로 바꾸는 역할
+→ XOR(^) + shift(<<)로 두 값을 섞어서 충돌을 줄임
+
+[코테 팁]
+
+unordered_set<long long> s;
+long long key = ((long long)x << 32) | y;
+
+→ 해시 정의 없이 더 간단하게 사용 가능 (실전에서 많이 씀)
+*/
+
+```
+
 ##set
 ### 사용법 + 언제 + 주의사항
 ```cpp

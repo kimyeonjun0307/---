@@ -544,6 +544,7 @@ s.clear();
 */
 ```
 
+
 ## unordered_set에서 pair 응용법
 ### 사용법 + 언제 + 주의사항
 ```cpp
@@ -552,7 +553,7 @@ s.clear();
 #include <utility>
 using namespace std;
 
-struct PairHash {
+struct PairHash {// struct란 class가 함수로 사용할 객체를 만들 블루 프린트라면 struct는 자료형 객체를 만들때 쓰는 블루프린트.
     size_t operator()(const pair<int,int>& p) const {
         return hash<int>()(p.first) ^ (hash<int>()(p.second) << 1);
     }
@@ -720,6 +721,45 @@ s.max_load_factor(0.7);   // 충돌 허용 비율
 
 → "미리 공간 넉넉히 잡고, 충돌 줄여서 진짜 O(1) 만들기"
 */
+```
+
+## subtr
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string s = "hello";
+
+    string sub = s.substr(0, 3); // s[0]~s[2] 부분 추출 → "hel"
+    cout << sub << "\n";
+}
+
+/*
+[어떻게 쓰는지]
+
+→ 문자열 s에서 일부 구간을 잘라 새로운 문자열을 만든다.
+→ substr(start_index, length) 형태 사용
+   - start_index: 시작 위치 (0부터)
+   - length: 잘라낼 길이
+→ 원본 문자열은 변하지 않는다. (새로운 string 반환)
+→ 시간복잡도 O(length)
+
+[언제 쓰는지]
+
+1. 문자열 슬라이싱 필요할 때
+2. 접두사/접미사 비교 문제
+3. 특정 길이 부분 문자열을 key로 사용할 때 (unordered_set/unordered_map)
+4. 문자열 패턴 탐색 / 해시 / rolling hash 문제
+
+[무엇을 조심해야 하는지]
+
+1. start_index + length가 문자열 길이를 초과하지 않도록 주의
+2. 원본 문자열 s는 변하지 않음 → 변경하려면 별도 대입 필요
+3. substr로 만들어진 문자열은 새 객체 → 큰 문자열 반복 시 메모리/시간 고려
+*/
+
 ```
 
 ##getline

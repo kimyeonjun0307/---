@@ -1470,3 +1470,45 @@ sort(v.begin(), v.end(), [](auto a, auto b){
 → "그 자리에서 바로 쓰는 미니 함수 (특히 정렬에서 핵심)"
 */
 ```
+
+## gcd 최대공약수 최대공배수
+### 사용법 + 언제 + 주의사항
+```cpp
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int a = 12, b = 18;
+
+    int g = gcd(a, b);                 // 최대공약수
+    long long l = (long long)a * b / g; // 최소공배수
+
+    cout << g << " " << l << "\n";
+}
+
+/*
+[어떻게 쓰는지]
+
+→ gcd(a, b) : 두 수의 최대공약수를 구한다.
+→ lcm은 (a * b) / gcd(a, b) 로 구한다.
+→ 시간복잡도 O(log N) == 매우 빠름
+
+[언제 쓰는지]
+1. 최소공배수(LCM) 구할 때
+2. 약수 / 배수 문제
+3. 분수 기약분수 만들기
+4. 비율 / 정수론 문제
+
+[무엇을 조심해야 하는지]
+1. a * b 오버플로우 → long long 사용
+2. gcd(0, b) = b → 0 입력 주의
+3. 음수는 abs로 처리하는게 안전
+4. <algorithm> 포함 필요
+*/
+
+```

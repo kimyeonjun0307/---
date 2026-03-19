@@ -723,7 +723,7 @@ s.max_load_factor(0.7);   // 충돌 허용 비율
 */
 ```
 
-## subtr
+## substr
 ### 사용법 + 언제 + 주의사항
 ```cpp
 #include <bits/stdc++.h>

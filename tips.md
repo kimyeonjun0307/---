@@ -52,3 +52,55 @@ int main(){
     }
 }
 ```
+
+## 나누면서 곱하기로 데이터 줄이기
+### 이항계수
+```cpp
+/*
+백준 이항계수 (nCr) 개선 버전
+
+✅ 개선 포인트
+1. 팩토리얼 제거 → 오버플로우 방지
+2. 곱하면서 나누기 → 값을 작게 유지
+3. B = min(B, A-B) → 연산 횟수 절반 감소
+4. long long 사용 → 범위 확장
+
+⚡ 추가 개선 가능
+- 결과가 매우 큰 경우 → Big Integer (문자열 곱셈)
+- 모듈러 연산 필요 시 → 페르마의 소정리 + 빠른 거듭제곱
+
+💡 핵심 아이디어
+nCr = A! / (B!(A-B)!)
+→ 약분하면
+nCr = (A * (A-1) * ... * (A-B+1)) / B!
+
+→ 그래서 "곱하면서 나눈다"
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long combination(long long A, long long B){
+    if(B > A) return 0; // 예외 처리
+
+    B = min(B, A - B);  // 대칭성 활용
+
+    long long result = 1;
+
+    for(long long i = 1; i <= B; i++){
+        result = result * (A - i + 1) / i;
+    }
+
+    return result;
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    long long A, B;
+    cin >> A >> B;
+
+    cout << combination(A, B);
+}
+```

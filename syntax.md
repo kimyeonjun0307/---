@@ -473,8 +473,8 @@ m.clear();
 3. 단순 탐색이면 unordered_map이 더 좋음
 */
 ```
-##unordered_set
-###사용법 + 언제 + 주의사항
+## unordered_set
+### 사용법 + 언제 + 주의사항
 ```cpp
 
 #include <unordered_set>
@@ -603,7 +603,7 @@ long long key = ((long long)x << 32) | y;
 
 ```
 
-##set
+## set
 ### 사용법 + 언제 + 주의사항
 ```cpp
 #include <set>
@@ -661,7 +661,7 @@ s.clear();
 */
 ```
 
-##해시 튜닝 hash tuning (unordered_set / unordered_map)
+## 해시 튜닝 hash tuning (unordered_set / unordered_map)
 ## 사용법 + 언제 + 주의사항
 ```cpp
 #include <unordered_set>
@@ -762,7 +762,7 @@ int main() {
 
 ```
 
-##getline
+## getline
 ### 사용법 + 언제 + 주의사항
 ```cpp
 #include <string>
@@ -843,7 +843,7 @@ getline(cin, s);
 */
 ```
 
-##stringstream
+## stringstream
 ### 사용법 + 언제 + 주의사항
 ```cpp
 
@@ -1162,7 +1162,7 @@ void func(int& x)    // 참조로 받기
 
 */
 ```
-##const reference
+## const reference
 ### 사용법 + 언제 + 주의사항
 ```cpp
 #include <iostream>
@@ -1469,6 +1469,88 @@ sort(v.begin(), v.end(), [](auto a, auto b){
 
 → "그 자리에서 바로 쓰는 미니 함수 (특히 정렬에서 핵심)"
 */
+```
+## accumulate
+### 사용법 + 언제 + 주의사항
+```cpp
+#include <numeric>
+
+vector<int> v = {1, 2, 3, 4};
+
+int result = accumulate(v.begin(), v.end(), 0);
+
+/*
+[어떻게 쓰는지]
+
+→ 범위 [begin, end) 안의 값을 하나씩 누적해서 결과를 만든다.
+→ 기본은 "덧셈"으로 누적한다.
+→ 시간복잡도 O(N) == 원소 개수만큼 한 번씩 순회
+
+[언제 쓰는지]
+
+1. 배열 / 벡터 총합 구할 때
+2. 누적 계산 (점수, 비용, 거리 등)
+3. 조건 없이 전체 데이터 한 번에 처리할 때
+4. 반복문 줄이고 싶을 때 (가독성 ↑)
+5. 통계 처리 (평균, 합계 기반 계산)
+
+[무엇을 조심해야 하는지]
+
+1. 초기값 중요
+   → 0 넣으면 합, 1 넣으면 곱 느낌
+   → 잘못 넣으면 결과 틀림
+
+2. 기본은 덧셈이다
+   → 다른 연산하려면 함수 추가해야 함
+
+   예:
+   accumulate(v.begin(), v.end(), 1, multiplies<int>());
+
+3. 자료형 주의
+   → int overflow 날 수 있음
+   → long long 쓰는 게 안전한 경우 많음
+
+4. 범위 실수 주의
+   → [begin, end)라서 end는 포함 안됨
+
+*/
+```
+### 다양한 연산
+```cpp
+[곱셈]
+*/
+int mul = accumulate(v.begin(), v.end(), 1, multiplies<int>());
+// 1*2*3*4 = 24
+
+
+/*
+[뺄셈]
+*/
+int sub = accumulate(v.begin(), v.end(), 0, minus<int>());
+// (((0-1)-2)-3)-4 = -10
+
+
+/*
+[나눗셈]
+*/
+int div = accumulate(v.begin(), v.end(), 100, divides<int>());
+// (((100/1)/2)/3)/4 = 4 (정수 나눗셈)
+
+/*
+[최댓값 누적]
+*/
+int mx = accumulate(v.begin(), v.end(), v[0], [](int a, int b) {
+    return max(a, b);
+});
+// 결과: 4
+
+/*
+[최솟값 누적]
+*/
+int mn = accumulate(v.begin(), v.end(), v[0], [](int a, int b) {
+    return min(a, b);
+});
+// 결과: 1
 ```
 
 ## gcd 최대공약수 최대공배수
